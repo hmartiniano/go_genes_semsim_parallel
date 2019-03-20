@@ -6,13 +6,16 @@ Create a conda environment
 
 ```bash
 conda create -n go -f environment.yml
+```
 
 Download hgcn file
 
 ```bash
 wget ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt
+```
 
 Run script
 
 ```bash
 bash ./run.sh
+```
