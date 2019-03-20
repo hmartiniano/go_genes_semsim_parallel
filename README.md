@@ -1,5 +1,5 @@
 # go_genes_semsim_parallel
-R script to calculate a gene semantic similarity matrix for approved HGNC genes using th GOSemSim package 
+R script to calculate a gene semantic similarity matrix for approved HGNC genes using the GOSemSim package 
 
 # Usage
 Create a conda environment
