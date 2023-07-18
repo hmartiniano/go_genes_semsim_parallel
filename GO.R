@@ -6,21 +6,21 @@ no_cores <- detectCores() - 1
 
 # Initiate cluster
 cl <- makeCluster(no_cores)
-hsGO <- godata('org.Hs.eg.db', keytype = "SYMBOL", ont="BP")
+hsGO <- godata('org.Hs.eg.db', keytype = "ENSEMBL", ont="ONTOLOGY")
 hgnc <- read.csv("hgnc_complete_set.txt", sep="\t")
 #genes = slot(hsGO, "keys")
-genes <- unique(slot(hsGO, "geneAnno")$SYMBOL)
+genes <- unique(slot(hsGO, "geneAnno")$ENSEMBL)
 approved <- hgnc[hgnc$status == "Approved",]
-g <- genes[genes %in% approved$symbol]
+g <- genes[genes %in% approved$ensembl_gene_id]
 ngenes = length(g)
 print(ngenes)
 clusterExport(cl, list("geneSim", "hsGO"))
-f = file("GO_BP_Rel.csv", open="w")
+f = file("GO_ONTOLOGY_METHOD_COMBINE.csv", open="w")
 for (i in 1:ngenes) {
     g1 <- g[i]
     others = g[(i+1):ngenes]
     aux_fun = function(g2, g1) {
-        out <- geneSim(g1, g2, semData=hsGO, measure="Rel", combine="max", drop=NULL)
+        out <- geneSim(g1, g2, semData=hsGO, measure="METHOD", combine="COMBINE", drop=NULL)
     	if (!is.na(out)) {
     		out$geneSim
 	} else {
